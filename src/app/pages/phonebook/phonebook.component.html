@@ -1,0 +1,53 @@
+<article class="container d-flex flex-wrap gap-3 .align-items-center .justify-content-center h-100 mt-3 py-4">
+  <div class="w-100">
+    <button class="btn btn-primary" (click)="openModal(myModalContent)">Create Phonebook</button>
+  </div>
+  <ng-container *ngFor="let item of phonebookArray">
+    <div class="card mb-3 card-size">
+      <div class="card-body">
+        <h5 class="card-title">{{ item.firstName }} {{ item.lastName }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ item.phoneNumber }}</h6>
+        <p class="card-text">{{ item.textComments }}</p>
+        <div class="btn-group">
+          <button class="btn btn-primary me-2" (click)="editPhonebook(item, myModalContent)">Edit</button>
+          <button class="btn btn-danger" (click)="deletePhonebook(item.id)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</article>
+
+<ng-template #myModalContent>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Create Phonebook</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="phonebookForm">
+          <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="firstName" formControlName="firstName">
+          </div>
+          <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="lastName" formControlName="lastName">
+          </div>
+          <div class="mb-3">
+            <label for="phoneNumber" class="form-label">Phone Number</label>
+            <input type="number" class="form-control" id="phoneNumber" formControlName="phoneNumber">
+          </div>
+          <div class="mb-3">
+            <label for="textComments" class="form-label">Text Comments</label>
+            <textarea class="form-control" id="textComments" rows="3" formControlName="textComments"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="acepModal()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
